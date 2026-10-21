@@ -24,7 +24,7 @@ export default function App() {
     <aside className="sidebar"><div className="brand"><span className="brand-icon">∿</span><span>CommLab<strong>Copilot</strong></span></div>
       <div className="sidebar-label">EXPERIMENT WORKSPACE</div><a href="#workspace" className="nav active">◈ &nbsp; Wireless lab</a>
       <a href="#sources" className="nav">▤ &nbsp; Reference library</a><a href="#investigator" className="nav">✧ &nbsp; Investigations</a>
-      <div className="sidebar-bottom"><span className="dot"/> Local research workspace<p>BPSK / AWGN / Rayleigh<br/>Reproducible by design.</p></div>
+      <div className="sidebar-bottom"><span className="dot"/> Research workspace<p>BPSK / AWGN / Rayleigh<br/>Reproducible by design.</p></div>
     </aside>
     <main id="workspace"><header><div><span className="eyebrow">WIRELESS COMMUNICATIONS / LAB 01</span><h1>Evidence meets experiment.</h1>
       <p className="muted">A traceable path from your handout to a verified BER curve.</p></div><span className="version">MVP · 0.1</span></header>

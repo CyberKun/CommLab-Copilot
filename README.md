@@ -99,6 +99,8 @@ For a real PostgreSQL/Redis check, migrate an isolated database, set `DATABASE_U
 
 ## Project guide
 
+- [Vercel + Render deployment and free-tier limits](docs/deployment.md)
+
 - [Architecture and entity ownership](docs/architecture.md)
 - [Scientific conventions and reproducibility](docs/science.md)
 - [Execution, security and operations](docs/operations.md)

@@ -17,6 +17,9 @@ export async function request<T>(path: string, options: RequestInit = {}, worksp
     const error = await response.json().catch(() => ({}));
     throw new Error(`${error.message || JSON.stringify(error.detail) || response.statusText}${error.correlation_id ? ` · ${error.correlation_id}` : ""}`);
   }
+  if (!response.headers.get("content-type")?.includes("application/json")) {
+    throw new Error("The API is unavailable or not configured. A free hosted backend may need a minute to wake up; retry shortly.");
+  }
   return response.json();
 }
 export const post = (body: unknown): RequestInit => ({method: "POST", body: JSON.stringify(body)});

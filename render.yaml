@@ -1,0 +1,31 @@
+# Free demo: one web instance with separate API and outbox-worker processes.
+# Free Render PostgreSQL expires after 30 days. Export before expiration.
+databases:
+  - name: commlab-db
+    plan: free
+    databaseName: commlab
+    user: commlab
+    ipAllowList: []
+    postgresMajorVersion: "16"
+services:
+  - type: web
+    name: commlab-api
+    runtime: docker
+    plan: free
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
+    dockerCommand: python -m commlab.hosted
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: commlab-db
+          property: connectionString
+      - key: ARTIFACT_BACKEND
+        value: database
+      - key: METRICS_TOKEN
+        generateValue: true
+      - key: OPENBLAS_NUM_THREADS
+        value: "1"
+      - key: OMP_NUM_THREADS
+        value: "1"

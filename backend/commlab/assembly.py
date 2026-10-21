@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from commlab.db import database, Base
-from commlab.artifacts.api import Artifacts, LocalStore
+from commlab.artifacts.api import Artifacts, LocalStore, DatabaseStore
 from commlab.workspaces.api import Workspaces
 from commlab.experiments.api import Experiments
 from commlab.simulation.api import registry
@@ -16,7 +16,11 @@ class Services:
         Path("data").mkdir(exist_ok=True)
         self.engine, self.sessions = database(url)
         self.workspaces = Workspaces(self.sessions)
-        self.artifacts = Artifacts(self.sessions, LocalStore(storage or os.getenv("ARTIFACT_ROOT", "data/artifacts")))
+        artifact_backend = os.getenv("ARTIFACT_BACKEND", "local")
+        if artifact_backend not in {"local", "database"}:
+            raise ValueError("ARTIFACT_BACKEND must be local or database")
+        store = DatabaseStore(self.sessions) if artifact_backend == "database" and storage is None else LocalStore(storage or os.getenv("ARTIFACT_ROOT", "data/artifacts"))
+        self.artifacts = Artifacts(self.sessions, store)
         self.capabilities = registry()
         self.verifier = Verifier([TheoryRule(), SampleAdequacyRule()])
         self.experiments = Experiments(self.sessions, self.capabilities, self.artifacts, self.verifier)

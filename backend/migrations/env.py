@@ -2,11 +2,11 @@ import os
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from commlab.assembly import Services
-from commlab.db import Base
+from commlab.db import Base, _normalize_url
 
 config = context.config
 if config.attributes.get("use_environment_url", True) and os.getenv("DATABASE_URL"):
-    config.set_main_option("sqlalchemy.url", os.environ["DATABASE_URL"].replace("%", "%%"))
+    config.set_main_option("sqlalchemy.url", _normalize_url(os.environ["DATABASE_URL"]).replace("%", "%%"))
 target_metadata = Base.metadata
 
 

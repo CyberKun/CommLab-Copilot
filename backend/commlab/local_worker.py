@@ -1,4 +1,4 @@
-"""Development-only durable outbox executor, without Redis."""
+"""Single-consumer durable outbox executor for native and hosted demos."""
 import time
 import logging
 from commlab.assembly import Services
@@ -24,7 +24,8 @@ def tick(services):
 
 if __name__ == "__main__":
     services = Services()
-    services.create_dev_schema()
+    if services.engine.dialect.name == "sqlite":
+        services.create_dev_schema()
     while True:
         try:
             tick(services)

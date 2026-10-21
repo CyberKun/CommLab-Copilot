@@ -19,16 +19,18 @@ queued jobs resume after the service wakes. Do not use artificial keep-alive
 traffic to evade this limitation. This deployment is one instance only: the
 outbox consumer is not a competing-consumer replacement for Dramatiq.
 
-The supplied free Render database **expires after 30 days**. Export data before
-expiry, or configure an independently provisioned PostgreSQL/pgvector database
-with a suitable retention policy. No paid upgrade is authorized by this file.
+The Blueprint uses the owner's dedicated Neon PostgreSQL/pgvector database.
+Set its direct connection URL as the secret DATABASE_URL during creation; no
+Render database is provisioned. Neon compute/storage quotas and its retention
+policy apply. No paid upgrade is authorized by this file.
 Free compute/storage/traffic quotas still apply. The offline investigator is
 explicitly labelled; hosting does not add a live LLM.
 
 ## Deploy
 
 1. Push the repository to GitHub, then create a Render Blueprint using
-   `render.yaml`. Verify all selected plans are free before creation.
+   `render.yaml`. Verify all selected plans are free before creation and enter
+   the dedicated Neon database URL into the secret DATABASE_URL field.
 2. The hosted launcher runs Alembic before starting API and worker. Verify the
    Render deployment succeeds and its `/health` returns JSON.
 3. Set `COMMLAB_API_ORIGIN` to the actual HTTPS Render origin and run

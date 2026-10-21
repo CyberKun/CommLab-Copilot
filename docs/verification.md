@@ -1,5 +1,21 @@
 # Verification record
 
+## Hosting preparation update - 2026-10-21
+
+Commit `c57f13f` passed [GitHub CI run 39605827527](https://github.com/CyberKun/CommLab-Copilot/actions/runs/39605827527),
+including real PostgreSQL/pgvector/Redis/Dramatiq execution and Alembic migrations.
+This supersedes the earlier infrastructure-unavailable note below. It does not
+constitute production load testing or a live Render deployment.
+
+The expanded local suite passed **33 tests, 1 skipped** in 14.85 seconds. Its
+new database-blob test verifies a completed simulation's exported plot survives
+recreating application services and remains isolated from another workspace.
+Frontend TypeScript/build passed. The Vercel frontend deployment completed and
+https://commlab-copilot.vercel.app returned HTTP 200. Backend provisioning and
+the online end-to-end walkthrough are pending Render account verification.
+
+The record below describes the earlier local milestone and remains historical.
+
 Recorded 2026-10-21. This distinguishes executed checks from supplied but unexecuted integrations.
 
 | Check | Actual result |

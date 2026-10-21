@@ -4,7 +4,9 @@ A runnable communication-experiment workspace built as a modular Python monolith
 
 **Implemented:** coherent BPSK over AWGN and iid flat Rayleigh fading; reviewed experiment configurations; background execution; progress and cancellation; versioned results and SVG plots; exact uncertainty bounds; deterministic verification; source ingestion; workspace-scoped hybrid retrieval; persisted investigator activity; comparisons; and reproduction.
 
-**Verification limits:** the local SQLite development flow and numerical/evaluation suites have been executed. Docker's engine was unavailable on the development machine, so the supplied PostgreSQL/pgvector/Redis deployment and real-queue smoke test still need execution. No live Ollama model was installed: real-provider adapters are implemented, but their model quality and the three-way LLM benchmark are not claimed as verified. Default mode is visibly labelled offline rules plus lexical hashing, not a simulated LLM.
+**Verification:** the local SQLite flow and numerical/evaluation suites have been executed. The expanded local suite passed 33 tests (one infrastructure test skipped locally). [GitHub CI](https://github.com/CyberKun/CommLab-Copilot/actions/runs/39605827527) additionally passed the real PostgreSQL/pgvector/Redis smoke test. No live Ollama model was installed: real-provider adapters are implemented, but their model quality and the three-way LLM benchmark are not claimed as verified. Default mode is visibly labelled offline rules plus lexical hashing, not a simulated LLM.
+
+**Hosting status:** the frontend is deployed at https://commlab-copilot.vercel.app. Backend provisioning is pending Render account verification; the hosted app is not yet functional end to end. See [deployment instructions](docs/deployment.md) for the free-tier architecture and database expiration limit.
 
 ## Run with Docker
 

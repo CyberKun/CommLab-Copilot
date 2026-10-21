@@ -281,7 +281,14 @@ class Knowledge:
                                       Chunk.embedding_model == self.embeddings.model,
                                       Chunk.index_version == self.embeddings.index_version)
             if s.bind.dialect.name == "postgresql":
-                lex = func.ts_rank_cd(func.to_tsvector("simple", Chunk.text), func.plainto_tsquery("simple", query))
+                # A natural-language question rarely has every word in one chunk.
+                # Match any normalized term, as the portable candidate path does.
+                # tokens() emits only alphanumerics; raw query syntax is never used.
+                terms = sorted(set(tokens(query)))
+                if not terms:
+                    return [], []
+                lex = func.ts_rank_cd(func.to_tsvector("simple", Chunk.text),
+                                      func.to_tsquery("simple", " | ".join(terms)))
                 keyword = s.scalars(base.where(lex > 0).order_by(lex.desc()).limit(limit)).all()
                 distance = Chunk.embedding.op("<=>")(cast(literal(embedding, type_=Vector(DIMENSIONS)), Vector(DIMENSIONS)))
                 vector = s.scalars(base.order_by(distance).limit(limit)).all()

@@ -1,0 +1,199 @@
+{
+  "schema_version": 1,
+  "split": "heldout",
+  "mode": "offline_rules_and_lexical_hash",
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.2.5",
+    "scipy": "1.15.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "rng": "PCG64",
+    "batch_bits": "65536"
+  },
+  "cases": [
+    {
+      "id": "h-ref-energy",
+      "kind": "reference",
+      "passed": true,
+      "seconds": 0.008748699998250231,
+      "retrieved_ids": [
+        "5e040102-a02a-4de4-83ae-54be91e84752",
+        "64829a0e-5d53-4e3c-949a-b11aac3e02f7",
+        "0e1621e9-79f8-44b8-a6ff-56da42086eb6"
+      ],
+      "citation_exact_text_support": true,
+      "retrieval_hit_at_3": true
+    },
+    {
+      "id": "h-ref-sampling",
+      "kind": "reference",
+      "passed": true,
+      "seconds": 0.005149099997652229,
+      "retrieved_ids": [
+        "ae103495-cd97-47dc-aaea-d1732b3caf18",
+        "0e1621e9-79f8-44b8-a6ff-56da42086eb6"
+      ],
+      "citation_exact_text_support": true,
+      "retrieval_hit_at_3": true
+    },
+    {
+      "id": "h-ref-fading",
+      "kind": "reference",
+      "passed": true,
+      "seconds": 0.004664699998102151,
+      "retrieved_ids": [
+        "49ad95a9-5f87-4273-8ec7-aa56e5b2b19b",
+        "6cc84a2a-9fa3-45bd-a43a-8c0277d0a1ed"
+      ],
+      "citation_exact_text_support": true,
+      "retrieval_hit_at_3": true
+    },
+    {
+      "id": "h-absent",
+      "kind": "absent",
+      "passed": true,
+      "seconds": 0.0025396000055479817,
+      "retrieved_ids": [],
+      "citation_exact_text_support": true,
+      "retrieval_hit_at_3": null
+    },
+    {
+      "id": "h-unsupported",
+      "kind": "unsupported",
+      "passed": true,
+      "seconds": 0.040752200002316386
+    },
+    {
+      "id": "h-sim-awgn",
+      "kind": "simulation",
+      "passed": true,
+      "seconds": 0.055525899995700456,
+      "exact_repeat": true,
+      "false_alarm": false,
+      "points": [
+        {
+          "ebn0_db": 0.0,
+          "errors": 7943,
+          "bits": 100000,
+          "ber": 0.07943,
+          "theory": 0.07864960352514258,
+          "ci_low": 0.07776123483930647,
+          "ci_high": 0.08112320621445122
+        },
+        {
+          "ebn0_db": 4.0,
+          "errors": 1199,
+          "bits": 100000,
+          "ber": 0.01199,
+          "theory": 0.012500818040737553,
+          "ci_low": 0.011324595368101596,
+          "ci_high": 0.012683929966286507
+        },
+        {
+          "ebn0_db": 8.0,
+          "errors": 17,
+          "bits": 100000,
+          "ber": 0.00017,
+          "theory": 0.00019090777407599314,
+          "ci_low": 9.903428379688562e-05,
+          "ci_high": 0.00027217256119328655
+        }
+      ]
+    },
+    {
+      "id": "h-sim-rayleigh",
+      "kind": "simulation",
+      "passed": true,
+      "seconds": 0.0588110999960918,
+      "exact_repeat": true,
+      "false_alarm": false,
+      "points": [
+        {
+          "ebn0_db": 0.0,
+          "errors": 14448,
+          "bits": 100000,
+          "ber": 0.14448,
+          "theory": 0.1464466094067262,
+          "ci_low": 0.14230628381995014,
+          "ci_high": 0.14667435815323987
+        },
+        {
+          "ebn0_db": 4.0,
+          "errors": 7817,
+          "bits": 100000,
+          "ber": 0.07817,
+          "theory": 0.07713691605639106,
+          "ci_low": 0.07651348004961209,
+          "ci_high": 0.07985103493504021
+        },
+        {
+          "ebn0_db": 8.0,
+          "errors": 3524,
+          "bits": 100000,
+          "ber": 0.03524,
+          "theory": 0.03545906762783807,
+          "ci_low": 0.034105681808277284,
+          "ci_high": 0.036401376801433606
+        }
+      ]
+    },
+    {
+      "id": "h-normalization",
+      "kind": "normalization_fault",
+      "passed": true,
+      "seconds": 0.006710499998007435,
+      "fault_detected": true,
+      "diagnosis_scope": "Detects inconsistency; does not uniquely identify its cause."
+    },
+    {
+      "id": "h-sample",
+      "kind": "insufficient_sample",
+      "passed": true,
+      "seconds": 0.0006044999972800724,
+      "upper_95": 0.003682083896865671,
+      "errors": 0
+    },
+    {
+      "id": "h-multiple",
+      "kind": "multiple_changes",
+      "passed": true,
+      "seconds": 0.022366100005456246
+    },
+    {
+      "id": "h-conflict",
+      "kind": "conflicting_sources",
+      "passed": true,
+      "seconds": 0.0596471000026213,
+      "both_sources_retrieved": true,
+      "automatic_conflict_resolution": false
+    },
+    {
+      "id": "h-invalid",
+      "kind": "invalid_spec",
+      "passed": true,
+      "seconds": 4.4200001866556704e-05
+    }
+  ],
+  "metrics": {
+    "passed": 12,
+    "total": 12,
+    "retrieval_hit_at_3": 1,
+    "citation_exact_text_support": true,
+    "reproducibility_exact": true,
+    "false_alarm_rate": 0,
+    "case_latency_median_seconds": 0.007729599998128833,
+    "model_cost_usd": null,
+    "diagnosis_accuracy": null
+  },
+  "limits": [
+    "Tiny synthetic set; not a benchmark of real handouts.",
+    "Citation metric checks exact stored text, not semantic entailment.",
+    "Fault detection does not establish root-cause diagnosis accuracy.",
+    "No LLM baseline or RAG-only LLM scores without a live provider."
+  ],
+  "model_comparison": {
+    "basic_llm": "not_run_provider_unavailable",
+    "rag_only_llm": "not_run_provider_unavailable",
+    "complete_tool_workflow": "deterministic offline mode tested; live LLM comparison pending"
+  }
+}

@@ -1,0 +1,77 @@
+name: commlab
+x-backend: &backend
+  build: ./backend
+  environment: &environment
+    DATABASE_URL: postgresql+psycopg://commlab:${POSTGRES_PASSWORD:-local-commlab-change-me}@postgres:5432/commlab
+    REDIS_URL: redis://redis:6379/0
+    ARTIFACT_ROOT: /data/artifacts
+    METRICS_TOKEN: ${METRICS_TOKEN:-local-metrics-change-me}
+    OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+    LLM_MODEL: ${LLM_MODEL:-}
+    EMBEDDING_MODEL: ${EMBEDDING_MODEL:-}
+    EMBEDDING_REVISION: ${EMBEDDING_REVISION:-}
+  volumes:
+    - artifacts:/data/artifacts
+  depends_on:
+    migrate:
+      condition: service_completed_successfully
+    redis:
+      condition: service_healthy
+  restart: unless-stopped
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.0-pg16
+    environment:
+      POSTGRES_USER: commlab
+      POSTGRES_DB: commlab
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-commlab-change-me}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U commlab -d commlab"]
+      interval: 3s
+      retries: 20
+  redis:
+    image: redis:7.4.3-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      retries: 20
+  migrate:
+    build: ./backend
+    environment: *environment
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+  api:
+    <<: *backend
+    ports: ["127.0.0.1:8000:8000"]
+  dispatcher:
+    <<: *backend
+    command: ["python", "-m", "commlab.worker"]
+  simulation-worker:
+    <<: *backend
+    command: ["dramatiq", "commlab.worker", "--processes", "1", "--threads", "1", "--queues", "simulation"]
+    mem_limit: 512m
+    cpus: 1
+  ingestion-worker:
+    <<: *backend
+    command: ["dramatiq", "commlab.worker", "--processes", "1", "--threads", "1", "--queues", "ingestion"]
+    mem_limit: 512m
+    cpus: 1
+  investigator-worker:
+    <<: *backend
+    command: ["dramatiq", "commlab.worker", "--processes", "1", "--threads", "1", "--queues", "investigation"]
+    mem_limit: 512m
+  web:
+    build: ./frontend
+    ports: ["127.0.0.1:8080:80"]
+    depends_on: [api]
+volumes:
+  postgres:
+  redis:
+  artifacts:

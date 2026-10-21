@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "split": "calibration",
+  "mode": "offline_rules_and_lexical_hash",
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.2.5",
+    "scipy": "1.15.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "rng": "PCG64",
+    "batch_bits": "65536"
+  },
+  "cases": [
+    {
+      "id": "c-ref-awgn",
+      "kind": "reference",
+      "passed": true,
+      "seconds": 0.00978939999913564,
+      "retrieved_ids": [
+        "4e3a27ad-f693-4640-a85a-414106c09fc5",
+        "279a5c92-6e4c-430d-b1e5-3773a1302393",
+        "9766f7ec-451c-4ffc-8ea3-fa6165564724"
+      ],
+      "citation_exact_text_support": true,
+      "retrieval_hit_at_3": true
+    },
+    {
+      "id": "c-ref-rayleigh",
+      "kind": "reference",
+      "passed": true,
+      "seconds": 0.006489999999757856,
+      "retrieved_ids": [
+        "50a9b31e-e64c-4b78-9580-7b921ecbc099",
+        "73436269-3f76-456f-8237-b447b87acfa4",
+        "4e3a27ad-f693-4640-a85a-414106c09fc5"
+      ],
+      "citation_exact_text_support": true,
+      "retrieval_hit_at_3": true
+    },
+    {
+      "id": "c-unsupported",
+      "kind": "unsupported",
+      "passed": true,
+      "seconds": 0.04159340000478551
+    },
+    {
+      "id": "c-sim",
+      "kind": "simulation",
+      "passed": true,
+      "seconds": 0.05674220000219066,
+      "exact_repeat": true,
+      "false_alarm": false,
+      "points": [
+        {
+          "ebn0_db": 0.0,
+          "errors": 7838,
+          "bits": 100000,
+          "ber": 0.07838,
+          "theory": 0.07864960352514258,
+          "ci_low": 0.07672143042491945,
+          "ci_high": 0.08006307223639557
+        },
+        {
+          "ebn0_db": 4.0,
+          "errors": 1253,
+          "bits": 100000,
+          "ber": 0.01253,
+          "theory": 0.012500818040737553,
+          "ci_low": 0.011849743781646355,
+          "ci_high": 0.013238744065440428
+        },
+        {
+          "ebn0_db": 8.0,
+          "errors": 16,
+          "bits": 100000,
+          "ber": 0.00016,
+          "theory": 0.00019090777407599314,
+          "ci_low": 9.145650183632774e-05,
+          "ci_high": 0.000259817006512945
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "passed": 4,
+    "total": 4,
+    "retrieval_hit_at_3": 1,
+    "citation_exact_text_support": true,
+    "reproducibility_exact": true,
+    "false_alarm_rate": 0,
+    "case_latency_median_seconds": 0.025691400001960574,
+    "model_cost_usd": null,
+    "diagnosis_accuracy": null
+  },
+  "limits": [
+    "Tiny synthetic set; not a benchmark of real handouts.",
+    "Citation metric checks exact stored text, not semantic entailment.",
+    "Fault detection does not establish root-cause diagnosis accuracy.",
+    "No LLM baseline or RAG-only LLM scores without a live provider."
+  ],
+  "model_comparison": {
+    "basic_llm": "not_run_provider_unavailable",
+    "rag_only_llm": "not_run_provider_unavailable",
+    "complete_tool_workflow": "deterministic offline mode tested; live LLM comparison pending"
+  }
+}

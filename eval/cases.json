@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "review_status": "Author-reviewed against the synthetic handout and analytic formulas; independent human review pending.",
+  "cases": [
+    {"id":"c-ref-awgn","split":"calibration","kind":"reference","query":"AWGN noise variance N0","expected_text":"variance N0/2"},
+    {"id":"c-ref-rayleigh","split":"calibration","kind":"reference","query":"Rayleigh receiver channel knowledge","expected_text":"perfect receiver channel state information"},
+    {"id":"c-unsupported","split":"calibration","kind":"unsupported","query":"Simulate OFDM"},
+    {"id":"c-sim","split":"calibration","kind":"simulation","channel":"awgn","seed":19},
+    {"id":"h-ref-energy","split":"heldout","kind":"reference","query":"BPSK bit symbol energy Eb Es","expected_text":"bit energy Eb equals symbol energy Es"},
+    {"id":"h-ref-sampling","split":"heldout","kind":"reference","query":"Zero observed errors confidence intervals","expected_text":"Zero observed errors is not proof of zero BER"},
+    {"id":"h-ref-fading","split":"heldout","kind":"reference","query":"independent fading channel power Rayleigh","expected_text":"average channel power"},
+    {"id":"h-absent","split":"heldout","kind":"absent","query":"zebra photosynthesis chlorophyll"},
+    {"id":"h-unsupported","split":"heldout","kind":"unsupported","query":"Execute MATLAB OFDM code"},
+    {"id":"h-sim-awgn","split":"heldout","kind":"simulation","channel":"awgn","seed":101},
+    {"id":"h-sim-rayleigh","split":"heldout","kind":"simulation","channel":"rayleigh","seed":303},
+    {"id":"h-normalization","split":"heldout","kind":"normalization_fault","channel":"awgn","seed":77},
+    {"id":"h-sample","split":"heldout","kind":"insufficient_sample"},
+    {"id":"h-multiple","split":"heldout","kind":"multiple_changes"},
+    {"id":"h-conflict","split":"heldout","kind":"conflicting_sources","query":"noise variance N0 rather than N0/2"},
+    {"id":"h-invalid","split":"heldout","kind":"invalid_spec","spec":{"noise_convention":"N0"}}
+  ]
+}

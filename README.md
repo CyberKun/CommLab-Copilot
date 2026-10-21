@@ -6,7 +6,7 @@ A runnable communication-experiment workspace built as a modular Python monolith
 
 **Verification:** the local SQLite flow and numerical/evaluation suites have been executed. The expanded local suite passed 33 tests (one infrastructure test skipped locally). [GitHub CI](https://github.com/CyberKun/CommLab-Copilot/actions/runs/39605827527) additionally passed the real PostgreSQL/pgvector/Redis smoke test. No live Ollama model was installed: real-provider adapters are implemented, but their model quality and the three-way LLM benchmark are not claimed as verified. Default mode is visibly labelled offline rules plus lexical hashing, not a simulated LLM.
 
-**Hosting status:** the frontend is deployed at https://commlab-copilot.vercel.app. Backend provisioning is pending Render account verification; the hosted app is not yet functional end to end. See [deployment instructions](docs/deployment.md) for the free-tier architecture and database expiration limit.
+**Live demo:** https://commlab-copilot.vercel.app uses the Render API at https://commlab-api.onrender.com with durable Neon PostgreSQL storage. The hosted end-to-end smoke test passed on 2026-10-21: ingestion, retrieval, citations, reviewed AWGN/Rayleigh execution, comparison, JSON/SVG downloads and workspace isolation. Free Render instances sleep when inactive, so the first request can take a minute or more; retry if startup times out. See [deployment instructions](docs/deployment.md) for limits.
 
 ## Run with Docker
 

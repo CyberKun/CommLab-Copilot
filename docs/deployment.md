@@ -1,5 +1,13 @@
 # Hosted portfolio demo
 
+Live frontend: https://commlab-copilot.vercel.app
+
+Backend health: https://commlab-api.onrender.com/health
+
+API documentation: https://commlab-api.onrender.com/docs
+
+The backend root `/` has no page; use the frontend URL for the application.
+
 Deploy the React frontend on Vercel and the API on Render. Vercel Functions do
 not host this application's continuous Python worker processes. The free demo
 uses one Render web instance supervising two separate processes: Uvicorn and a
@@ -40,6 +48,24 @@ explicitly labelled; hosting does not add a live LLM.
    Same-origin proxying preserves bearer authorization without permissive CORS.
 5. Through the Vercel URL, create a workspace, upload the synthetic handout,
    run a simulation, and download its result. Recheck after a service restart.
+
+The existing deployment was created through Render's web-service form using
+the public GitHub repository, root directory `backend`, Dockerfile `./Dockerfile`,
+build context `.`, command `python -m commlab.hosted`, health path `/health` and
+free compute. It was observed auto-deploying the subsequent backend fix. The
+Blueprint remains the reproducible alternative for new deployments. METRICS_TOKEN
+was not configured on the existing service; its metrics endpoint remains denied.
+
+To repeat the actual remote checks from `backend/`, run:
+
+```sh
+python scripts/smoke_hosted.py https://commlab-copilot.vercel.app
+```
+
+This creates synthetic demonstration workspaces and jobs, saves private access
+credentials under ignored `data/`, and reports only executed checks. Run it after
+the service has woken; a free-instance cold start can exceed a request timeout.
+Do not repeatedly create workspaces to work around a cold start.
 
 For a pre-existing external database, configure `DATABASE_URL` in Render's
 secret environment settings; do not commit credentials. Use a direct database

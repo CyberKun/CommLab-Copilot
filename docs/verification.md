@@ -1,5 +1,39 @@
 # Verification record
 
+## Live deployment verified - 2026-10-21
+
+The Vercel frontend at https://commlab-copilot.vercel.app now proxies to the live
+Render backend at https://commlab-api.onrender.com. The dedicated Neon project
+provides PostgreSQL/pgvector and database-backed artifacts. Render is on free
+compute; this is a portfolio demo, not a production availability guarantee.
+
+`backend/scripts/smoke_hosted.py` completed through the public Vercel URL in
+**58.53 seconds**, using a synthetic document and genuine simulation jobs. It
+verified ingestion, hybrid retrieval, exact citation lookup, plan review,
+two completed simulations, run comparison, JSON/SVG downloads, and cross-workspace
+denial. Browser inspection confirmed both succeeded runs and the side-by-side
+comparison. See [hosted browser evidence](hosted-comparison.png).
+
+The sweep used seed 42, 100,000 bits per point and Eb/N0 [0, 4, 8] dB. Observed
+AWGN errors were [8058, 1252, 20]; Rayleigh errors were [14530, 7681, 3638]. These
+are actual outcomes, not baseline model scores. The investigator used offline
+rules, with that limitation visible in the UI.
+
+A source uploaded before backend redeployment remained available afterward,
+and its downloaded bytes matched the stored SHA-256. This verifies one real
+restart-persistence case, not comprehensive outage recovery or backup restoration.
+
+The hosted check found a PostgreSQL keyword-search mismatch: plainto_tsquery
+required all question terms in one chunk, unlike the portable partial-match
+path. Commit `10fb5c3` uses sanitized OR terms, and the real PostgreSQL regression
+test passed in [CI run 39650491845](https://github.com/CyberKun/CommLab-Copilot/actions/runs/39650491845).
+Local tests passed **33 tests, 1 skipped** in 12.70 seconds. The live smoke was
+rerun successfully after the fix. Cold-start requests timed out during initial
+checking; warm service requests and the final flow succeeded.
+
+Credentials and detailed workspace reports remain only in ignored backend/data/.
+No live LLM/semantic-embedding quality benchmark has been run.
+
 ## Hosting preparation update - 2026-10-21
 
 Commit `c57f13f` passed [GitHub CI run 39605827527](https://github.com/CyberKun/CommLab-Copilot/actions/runs/39605827527),
